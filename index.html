@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taberna da Picanha - Restaurante Tradicional Português</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥩</text></svg>">
+
+    <style>
+        /* [O SEU CSS TODO - OMITIDO POR BREVIDADE, É IGUAL AO ANTERIOR] */
+        :root {
+            --verde-portugal: #006600;
+            --vermelho-tinto: #8B0000;
+            --dourado: #DAA520;
+            --bege: #F5F5DC;
+            --castanho: #8B4513;
+            --preto: #1C1C1C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, var(--bege) 0%, #FFF8DC 100%);
+            color: var(--preto);
+            line-height: 1.8;
+        }
+
+        /* Header Animado */
+        .header {
+            background: linear-gradient(45deg, var(--verde-portugal), var(--vermelho-tinto));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🥩";
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.1;
+            left: -5%;
+            top: -50%;
+            transform: rotate(-15deg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(-15deg) translateY(0); }
+            50% { transform: rotate(-15deg) translateY(-20px); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 0.5rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.7); }
+            to { text-shadow: 3px 3px 20px var(--dourado); }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--castanho);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--bege);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: var(--dourado);
+            color: var(--preto);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: var(--vermelho-tinto);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--dourado);
+            margin: 1rem auto;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            padding: 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid transparent;
+            cursor: pointer; /* Adicionado para indicar que é clicável */
+        }
+
+        .menu-item::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--dourado) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .menu-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--dourado);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .menu-item-content {
+            padding: 2rem;
+        }
+
+        .menu-item h3 {
+            color: var(--verde-portugal);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: var(--vermelho-tinto);
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+
+        .description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        /* Wine Section */
+        .wine-section {
+            background: linear-gradient(135deg, var(--vermelho-tinto), #A52A2A);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wine-section::before {
+            content: "🍷";
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.1;
+            right: -10%;
+            top: -20%;
+            transform: rotate(15deg);
+        }
+
+        /* Reservation Form */
+        .reservation-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--verde-portugal);
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--castanho);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--dourado);
+        }
+
+        .btn-reserve {
+            background: linear-gradient(45deg, var(--verde-portugal), var(--dourado));
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 2rem auto 0;
+        }
+
+        .btn-reserve:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--preto);
+            color: var(--bege);
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--dourado);
+            font-size: 2rem;
+            margin: 0 1rem;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ----- ESTILOS DOS MODALS (POP-UPS) ----- */
+        .modal {
+            display: none; /* Escondido por padrão */
+            position: fixed; /* Fica no ecrã */
+            z-index: 2000; /* Acima de tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Para scroll se o conteúdo for grande */
+            background-color: rgba(0,0,0,0.6); /* Fundo escurecido */
+            backdrop-filter: blur(5px); /* Efeito de blur no fundo */
+            padding-top: 60px;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background-color: var(--bege);
+            margin: 5% auto; /* 5% do topo e centrado */
+            padding: 40px;
+            border: 1px solid var(--dourado);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(-50px);
+            transition: transform 0.3s ease-out;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-content h3 {
+            color: var(--vermelho-tinto);
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content .price {
+            font-size: 2.2rem;
+            color: var(--verde-portugal);
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .close-button {
+            color: var(--preto);
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--vermelho-tinto);
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Taberna da Picanha</h1>
+        <p class="subtitle">"A verdadeira picanha portuguesa desde 1985"</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">Início</a></li>
+            <li><a href="#picanhas">Picanhas</a></li>
+            <li><a href="#entradas">Entradas</a></li>
+            <li><a href="#vinhos">Vinhos</a></li>
+            <li><a href="#reservas">Reservas</a></li>
+            <li><a href="#contactos">Contactos</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="section fade-in">
+        <h2>Bem-vindo à Taberna da Picanha</h2>
+        <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto;">
+            No coração de Lisboa, servimos as melhores picanhas portuguesas desde 1985.
+            Carne selecionada, grelhada na brasa com o know-how de três gerações.
+            Acompanhada pelos vinhos mais premiados do Alentejo e Douro.
+        </p>
+    </section>
+
+    <section id="picanhas" class="section">
+        <h2>As Nossas Picanhas</h2>
+        <div class="menu-grid">
+
+            <div class="menu-item fade-in" data-item="picanha1">
+                <img src="https://imgs.search.brave.com/WWbg9xTkwbUZWUeM25G3EIz0QZwBFgk9K6WWLN9LhtI/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTMy/NzQ3OTE1My9lcy9m/b3RvL3BpY2FuaGEt/ZmlsZXRlcy1hLWxh/LXBhcnJpbGxhLWJy/YXNpbGUlQzMlQjFv/cy5qcGc_cz02MTJ4/NjEyJnc9MCZrPTIw/JmM9b1kxaUhCbWdi/TVNrQldSUVd3XzN0/VnJzVm5oYWszN2lS/dEF0X0FlSWNTMD0" alt="Picanha à Taberna" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha à Taberna</h3>
+                    <p class="description">A nossa especialidade - picanha grelhada na brasa com molho secreto da casa.</p>
+                    <p class="price">€28,90/kg</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="picanha2">
+                <img src="https://cdn.pixabay.com/photo/2020/06/17/21/54/meat-5311301_1280.jpg" alt="Picanha à Portuguesa com alho" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha à Portuguesa</h3>
+                    <p class="description">Com alho e louro, grelhada em carvão de sobreiro.</p>
+                    <p class="price">€32,50/kg</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="picanha3">
+                <img src="https://cdn.pixabay.com/photo/2021/09/11/11/18/grilling-6615321_1280.jpg" alt="Picanha de Novilho maturada" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha de Novilho</h3>
+                    <p class="description">Carne maturada 21 dias, grelhada na pedra de sal.</p>
+                    <p class="price">€38,90/kg</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="picanha4">
+                <img src="https://carapreta.vtexassets.com/arquivos/ids/155785-1200-auto?v=638651379631470000&width=1200&height=auto&aspect=true" alt="Picanha de Cordeiro" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha de Cordeiro</h3>
+                    <p class="description">Picanha tenra de cordeiro, marinada em ervas do monte.</p>
+                    <p class="price">€29,90/kg</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="picanha5">
+                <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_auto,s_webp:avif/bbq-junkie.nl/wp-content/uploads/2015/01/picanha-chimichurri-recept-1320x743.jpg" alt="Picanha com Chimichurri" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha Chimichurri</h3>
+                    <p class="description">Suculenta picanha com o saboroso molho chimichurri.</p>
+                    <p class="price">€30,50/kg</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="picanha6">
+                <img src="https://saboresdacidade.com/wp-content/uploads/2024/10/divina-picanha-1024x1024.jpg" alt="Picanha Divina" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Picanha Divina</h3>
+                    <p class="description">A nossa picanha especial da casa com segredos do chef.</p>
+                    <p class="price">€42,00/kg</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="entradas" class="section">
+        <h2>Entradas Tradicionais</h2>
+        <div class="menu-grid">
+
+            <div class="menu-item fade-in" data-item="entrada1">
+                <img src="https://cdn.pixabay.com/photo/2019/11/19/10/07/olives-4636996_1280.jpg" alt="Azeitonas Marinadas" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Azeitonas Marinadas</h3>
+                    <p class="description">Azeitonas da nossa serra marinadas com ervas aromáticas.</p>
+                    <p class="price">€4,50</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="entrada2">
+                <img src="https://cdn.pixabay.com/photo/2019/08/22/04/56/cheese-4422507_1280.jpg" alt="Queijo da Serra" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Queijo da Serra</h3>
+                    <p class="description">Queijo curado de ovelha com doce de figos e nozes.</p>
+                    <p class="price">€8,90</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="entrada3">
+                <img src="https://cdn.pixabay.com/photo/2017/10/04/20/01/bread-2817388_1280.jpg" alt="Pão Alentejano" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Pão Alentejano</h3>
+                    <p class="description">Pão tradicional com azeite virgem extra e oregãos.</p>
+                    <p class="price">€3,90</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="entrada4">
+                <img src="https://imag.bonviveur.com/patas-bravas.webp" alt="Batatas Bravas" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Batatas Bravas</h3>
+                    <p class="description">Batatas assadas no forno com molho picante da casa.</p>
+                    <p class="price">€6,50</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="entrada5">
+                <img src="https://i0.wp.com/howtocookportuguesestuff.com/wp-content/uploads/2022/04/a-guilho.png?w=1455&ssl=1" alt="Camarão à Guilho" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Camarão à Guilho</h3>
+                    <p class="description">Camarão salteado em azeite, alho e piripiri.</p>
+                    <p class="price">€12,00</p>
+                </div>
+            </div>
+
+            <div class="menu-item fade-in" data-item="entrada6">
+                <img src="https://portugalexpert.pt/wp-content/uploads/chourico-assado-portugal-expert-04.jpg" alt="Chouriço Assado" class="menu-item-image">
+                <div class="menu-item-content">
+                    <h3>Chouriço Assado</h3>
+                    <p class="description">Chouriço caseiro assado na brasa, servido com pão torrado.</p>
+                    <p class="price">€7,50</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="vinhos" class="section">
+        <div class="wine-section fade-in">
+            <h2>Carta de Vinhos</h2>
+            <p>Seleção cuidadosa dos melhores vinhos portugueses para acompanhar a sua picanha</p>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div>
+                    <h4>🍷 Quinta do Crasto</h4>
+                    <p>Reserva Vinhas Velhas - Douro</p>
+                    <p><strong>€45,00</strong></p>
+                </div>
+                <div>
+                    <h4>🍷 Esporão</h4>
+                    <p>Reserva - Alentejo</p>
+                    <p><strong>€38,00</strong></p>
+                </div>
+                <div>
+                    <h4>🍷 Barca Velha</h4>
+                    <p>Edição Especial - Douro</p>
+                    <p><strong>€180,00</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reservas" class="section">
+        <h2>Reservas</h2>
+
+        <form class="reservation-form fade-in" method="POST" action="processar_reserva.php">
+            <div class="form-group">
+                <label for="nome">Nome Completo</label>
+                <input type="text" id="nome" name="nome_completo" required maxlength="100">
+            </div>
+
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone"
+                       pattern="[0-9]{9}"
+                       maxlength="9"
+                       title="O número de telemóvel deve ter exatamente 9 dígitos."
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input type="date" id="data" name="data_reserva" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pessoas">Número de Pessoas</label>
+                <input type="number" id="pessoas" name="numero_pessoas"
+                       min="1"
+                       max="12"
+                       placeholder="Ex: 2"
+                       title="Por favor, insira um número entre 1 e 12."
+                       required>
+                <small style="display: block; text-align: center; margin-top: 5px; color: #555;">
+                    Para grupos maiores que 12 pessoas, por favor contacte-nos diretamente.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="observacoes">Observações</label>
+                <textarea id="observacoes" name="observacoes" rows="4" placeholder="Preferências alimentares, ocasião especial..." maxlength="500"></textarea>
+            </div>
+            <button type="submit" class="btn-reserve">Fazer Reserva</button>
+        </form>
+
+    </section>
+
+    <section id="contactos" class="section">
+        <h2>Contactos</h2>
+        <div style="text-align: center; font-size: 1.2rem;">
+            <p>📍 Avenida Rodrigues Manito, N15 - 2910-535 Setúbal</p>
+            <p>📞 +351 21 35 45 254</p>
+            <p>📧 Geral@picanhasmelhoresdomundo.pt</p>
+            <p>🕒 Terça a Domingo:12:30 - 15-30 | 19h00 - 23h00 (Segunda fechado)</p>
+        </div>
+    </section>
+
+<footer>
+        <p>&copy; 2025 Taberna da Picanha - Todos os direitos reservados</p>
+        <div class="social-links">
+            <a href="https://github.com/rafaeldsilva1982-commits" target="_blank" rel="noopener noreferrer">🐦</a>
+            <a href="https://github.com/rogers2459" target="_blank" rel="noopener noreferrer">💀</a>
+            <a href="https://github.com/GonzalezzzConstantino" target="_blank" rel="noopener noreferrer">🙉</a>
+        </div>
+    </footer>
+
+    <div id="modal-picanha1" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha à Taberna</h3>
+            <p>A nossa especialidade da casa, um corte premium de picanha grelhada na brasa na perfeição. Marinada num molho secreto de ervas aromáticas e especiarias portuguesas. Servida com o nosso delicioso arroz de tomate malandrinho e batatas rústicas com pele.</p>
+            <p class="price">€28,90/kg</p>
+        </div>
+    </div>
+    <div id="modal-picanha2" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha à Portuguesa</h3>
+            <p>Uma receita clássica portuguesa. Picanha suculenta infusionada com alho fresco e folhas de louro, grelhada lentamente em carvão de sobreiro para um sabor fumado inconfundível. Acompanha com migas de espargos e grelos salteados em azeite.</p>
+            <p class="price">€32,50/kg</p>
+        </div>
+    </div>
+    <div id="modal-picanha3" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha de Novilho</h3>
+            <p>Para os verdadeiros apreciadores. Uma picanha de novilho maturada durante 21 dias para máxima tenrura e sabor. Grelhada de forma sublime na pedra de sal e servida com uma rica redução de vinho do Porto e batatas douradas crocantes.</p>
+            <p class="price">€38,90/kg</p>
+        </div>
+    </div>
+    <div id="modal-picanha4" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha de Cordeiro</h3>
+            <p>Uma alternativa deliciosa para quem aprecia o sabor único do cordeiro. Picanha tenra de cordeiro jovem, marinada durante horas num blend de ervas do monte e azeite, grelhada até ficar no ponto e cheia de sabor.</p>
+            <p class="price">€29,90/kg</p>
+        </div>
+    </div>
+    <div id="modal-picanha5" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha Chimichurri</h3>
+            <p>Uma viagem aos sabores da América do Sul. A nossa picanha premium é servida com o autêntico molho chimichurri caseiro, fresco e vibrante, feito com salsa, orégãos, alho, azeite e vinagre. Um acompanhamento perfeito.</p>
+            <p class="price">€30,50/kg</p>
+        </div>
+    </div>
+    <div id="modal-picanha6" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Picanha Divina</h3>
+            <p>A joia da coroa da Taberna da Picanha. Esta picanha especial da casa é preparada com um método exclusivo do nosso chef, resultando numa carne de textura inigualável e um sabor que se distingue. Peça ao nosso staff os segredos de acompanhamento.</p>
+            <p class="price">€42,00/kg</p>
+        </div>
+    </div>
+    <div id="modal-entrada1" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Azeitonas Marinadas</h3>
+            <p>Uma entrada clássica e refrescante. As nossas azeitonas são cuidadosamente selecionadas da serra portuguesa e marinadas num azeite virgem extra com orégãos frescos, casca de limão e um toque de alho. Perfeitas para abrir o apetite.</p>
+            <p class="price">€4,50</p>
+        </div>
+    </div>
+    <div id="modal-entrada2" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Queijo da Serra</h3>
+            <p>Um tesouro da gastronomia portuguesa. Servimos um delicioso queijo curado de ovelha, cremoso e com sabor intenso, vindo diretamente da Serra da Estrela. Acompanhado por um doce artesanal de figos e nozes estaladiças para contrastar.</p>
+            <p class="price">€8,90</p>
+        </div>
+    </div>
+    <div id="modal-entrada3" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Pão Alentejano</h3>
+            <p>O pão alentejano é conhecido pela sua côdea estaladiça e miolo denso e saboroso. Servido quente com um fio de azeite virgem extra de primeira qualidade e polvilhado com orégãos secos, é a entrada perfeita para qualquer refeição.</p>
+            <p class="price">€3,90</p>
+        </div>
+    </div>
+    <div id="modal-entrada4" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Batatas Bravas</h3>
+            <p>Uma entrada cheia de sabor e um toque picante. Batatas cortadas em cubos, assadas no forno até ficarem douradas e crocantes. Servidas com o nosso molho "bravas" caseiro, preparado com tomate, pimentão e um picante suave.</p>
+            <p class="price">€6,50</p>
+        </div>
+    </div>
+    <div id="modal-entrada5" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Camarão à Guilho</h3>
+            <p>Uma entrada clássica de marisco, simples e deliciosa. Camarões frescos salteados rapidamente em azeite de alho fatiado e malagueta picante, para um toque de calor. Ideal para partilhar, acompanhado com o nosso pão rústico.</p>
+            <p class="price">€12,00</p>
+        </div>
+    </div>
+    <div id="modal-entrada6" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3>Chouriço Assado</h3>
+            <p>Um chouriço de carne de porco preto de qualidade superior, assado na hora à mesa num pequeno pote de barro, ou na brasa da nossa cozinha. Servido fumegante, com o sabor inconfundível da tradição portuguesa e pão torrado.</p>
+            <p class="price">€7,50</p>
+        </div>
+    </div>
+
+    <script>
+        // Animações ao scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.2s';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Define a data mínima da reserva para "hoje"
+        document.addEventListener('DOMContentLoaded', function() {
+            const dataInput = document.getElementById('data');
+            if (dataInput) {
+                // Pega na data de hoje e formata para YYYY-MM-DD
+                const hoje = new Date().toISOString().split('T')[0];
+                // Define o atributo 'min' do input da data
+                dataInput.min = hoje;
+            }
+        });
+
+        // ----- JAVASCRIPT PARA OS MODALS (POP-UPS) -----
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            const closeButtons = document.querySelectorAll('.close-button');
+
+            // Abrir o modal
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const itemId = this.dataset.item; // Pega o valor de data-item="picanha1"
+                    const modal = document.getElementById(`modal-${itemId}`); // Constrói o ID do modal
+                    if (modal) {
+                        modal.classList.add('active'); // Ativa o display e a opacidade
+                        document.body.style.overflow = 'hidden'; // Impede o scroll do body
+                    }
+                });
+            });
+
+            // Fechar o modal
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const modal = this.closest('.modal'); // Encontra o modal pai
+                    if (modal) {
+                        modal.classList.remove('active'); // Desativa o display e opacidade
+                        document.body.style.overflow = ''; // Permite o scroll do body de novo
+                    }
+                });
+            });
+
+            // Fechar o modal ao clicar fora dele
+            window.addEventListener('click', function(event) {
+                if (event.target.classList.contains('modal')) {
+                    event.target.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // Fechar o modal com a tecla ESC
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    document.querySelectorAll('.modal.active').forEach(modal => {
+                        modal.classList.remove('active');
+                        document.body.style.overflow = '';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
